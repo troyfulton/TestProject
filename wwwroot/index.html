@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MapLarge File Manager</title>
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="app-header">
+        <div class="brand">
+            <img src="https://maplarge.com/images/MapLarge_Logo_Transparent.svg" alt="MapLarge" class="ml-logo" />
+            <div class="brand-text">
+                <h1>MapLarge File Manager</h1>
+                <p class="subtitle">Browse, search, and transfer files</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button type="button" id="generate-test-data-btn" class="btn generate" hidden>Generate test data</button>
+            <button type="button" id="open-dialog-btn" class="btn secondary" hidden>Open in dialog</button>
+        </div>
+    </header>
+
+    <main id="main" class="app-shell">
+        <div id="file-manager-root" class="file-manager" aria-live="polite"></div>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="assertive" hidden></div>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>

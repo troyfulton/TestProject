@@ -1,0 +1,12 @@
+## Build
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+## Local storage (never commit user uploads)
+FileData/
+
+## Personal interview study materials (do not ship)
+Documents/
