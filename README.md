@@ -43,13 +43,14 @@ dotnet build
 dotnet run --project TestProject.csproj
 ```
 
-5. Run tests:
+### Postman
 
-```powershell
-dotnet test
-```
+JSON API requests live in `postman/MapLarge-File-Manager.postman_collection.json` (hardcoded `https://localhost:7146/`, no environment variables).
 
-Expected: **40** passing tests (PathGuard, file ops, search, uploads, config/security, demo seed).
+1. Start the app with the `TestProject` profile.
+2. Import the collection into Postman.
+3. Trust the ASP.NET development certificate, or turn off SSL verification for localhost.
+4. Send any request (or run a folder). Session **07 Demo seed** writes the Star Wars tree under `FileData` (idempotent).
 
 ### Storage root
 
@@ -225,6 +226,7 @@ Features__EnableGenerateTestData=false
 - No document content search or Lucene
 - No custom auth UI or per-user folders
 - Not fully tus protocol compatible
+- No Swagger utility
 
 ## Project layout
 
@@ -237,7 +239,6 @@ Middleware/      Exceptions, access control
 Models/          DTOs
 Exceptions/      FileManagerException
 wwwroot/         SPA (HTML/CSS/ES modules)
-TestProject.Tests/
 perf/benchmarks.ps1
 web.config       IIS request size limit for chunks
 ```

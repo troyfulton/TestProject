@@ -1,0 +1,218 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "MapLarge File Manager API",
+    "description": "JSON API endpoints for the MapLarge File Manager.\n\nBase URL is hardcoded to https://localhost:7146/. Start the app with the TestProject profile, trust the ASP.NET development certificate (or disable SSL verification for localhost), then import this collection and send any request.\n\nOnly endpoints that return JSON (or problem+json) are included.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 Config",
+      "description": "Public client configuration (features, browsing, search, uploads). Never includes filesystem roots.",
+      "item": [
+        {
+          "name": "GET api/config",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/config",
+            "description": "Returns ClientConfigDto JSON."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 Browse",
+      "description": "Directory listings with optional paging and sort. Responses are DirectoryListingDto JSON.",
+      "item": [
+        {
+          "name": "GET api/files root",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/files",
+            "description": "Lists the storage root."
+          },
+          "response": []
+        },
+        {
+          "name": "GET api/files home Name asc",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/files?path=home&page=1&pageSize=50&sort=Name&direction=asc",
+            "description": "Lists home sorted by Name ascending."
+          },
+          "response": []
+        },
+        {
+          "name": "GET api/files home Size desc",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/files?path=home&page=1&pageSize=50&sort=Size&direction=desc",
+            "description": "Lists home sorted by Size descending."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 Browse errors",
+      "description": "Path validation failures return application/problem+json.",
+      "item": [
+        {
+          "name": "GET api/files path traversal",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/files?path=../secret",
+            "description": "Expects 400 problem+json with errorCode path_traversal."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 Search",
+      "description": "Filename and folder-name search. Responses are SearchResultDto JSON.",
+      "item": [
+        {
+          "name": "GET api/search readme recursive",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/search?q=readme&recursive=true",
+            "description": "Recursive name search for readme from the storage root."
+          },
+          "response": []
+        },
+        {
+          "name": "GET api/search scoped to home",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/search?q=readme&path=home&recursive=false&maxResults=50",
+            "description": "Non-recursive search limited to home."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05 Folders",
+      "description": "Create, move, and copy return DirectoryEntryDto JSON. Change the example names if a path already exists (409).",
+      "item": [
+        {
+          "name": "POST api/files/folders",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"path\": \"\",\n  \"name\": \"postman-demo\"\n}"
+            },
+            "url": "https://localhost:7146/api/files/folders",
+            "description": "Creates a folder at the storage root. Returns 201 with DirectoryEntryDto."
+          },
+          "response": []
+        },
+        {
+          "name": "POST api/files/move",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourcePath\": \"postman-demo\",\n  \"destinationDirectory\": \"\",\n  \"destinationName\": \"postman-demo-renamed\"\n}"
+            },
+            "url": "https://localhost:7146/api/files/move",
+            "description": "Moves or renames a folder/file. Returns DirectoryEntryDto."
+          },
+          "response": []
+        },
+        {
+          "name": "POST api/files/copy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourcePath\": \"postman-demo-renamed\",\n  \"destinationDirectory\": \"\",\n  \"destinationName\": \"postman-demo-copy\"\n}"
+            },
+            "url": "https://localhost:7146/api/files/copy",
+            "description": "Copies a folder/file. Returns DirectoryEntryDto."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "06 Uploads",
+      "description": "Creates an upload session and returns UploadSessionDto JSON. Destination folder must exist; change fileName if the target already exists.",
+      "item": [
+        {
+          "name": "POST api/uploads",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destinationDirectory\": \"home\",\n  \"fileName\": \"postman-upload.txt\",\n  \"fileSize\": 29\n}"
+            },
+            "url": "https://localhost:7146/api/uploads",
+            "description": "Creates a resumable upload session. Returns 201 with uploadId, offset, status, and expiresAt."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "07 Demo seed",
+      "description": "Seeds the demonstration file tree. Returns DemoSeedResult JSON. Idempotent; existing files are not overwritten.",
+      "item": [
+        {
+          "name": "POST api/demo/seed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "https://localhost:7146/api/demo/seed",
+            "description": "Creates missing demo folders and files. Requires Features:EnableGenerateTestData."
+          },
+          "response": []
+        },
+        {
+          "name": "GET api/search 00-Corporate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "https://localhost:7146/api/search?q=00-Corporate&recursive=false",
+            "description": "Confirms the seeded 00-Corporate folder is searchable."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

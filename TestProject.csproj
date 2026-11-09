@@ -17,12 +17,4 @@
     <None Remove="FileData\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- Nested test project must not compile into the web app. -->
-    <Compile Remove="TestProject.Tests\**" />
-    <Content Remove="TestProject.Tests\**" />
-    <EmbeddedResource Remove="TestProject.Tests\**" />
-    <None Remove="TestProject.Tests\**" />
-  </ItemGroup>
-
 </Project>
