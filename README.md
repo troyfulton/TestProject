@@ -1,6 +1,6 @@
 # MapLarge File Manager
 
-Web-based file and directory browser built on the MapLarge .NET 8 starter project. One ASP.NET Core app hosts JSON APIs and a vanilla JavaScript SPA on the same origin.
+Web-based file and directory browser for MapLarge on .NET 8. One ASP.NET Core app hosts JSON APIs and a vanilla JavaScript SPA on the same origin.
 
 ## What it does
 
@@ -31,23 +31,23 @@ User data lives under `FileStorage:RootPath` (default `FileData`), **outside** `
 
 ## Local setup (Visual Studio / .NET 8)
 
-1. Open `TestProject.sln`.
+1. Open the solution in Visual Studio.
 2. Restore NuGet packages (automatic on build).
-3. Press **F5** with the `TestProject` profile (`launchUrl` = `index.html`).
+3. Press **F5** (`launchUrl` = `index.html`).
    - Default URLs: `https://localhost:7146` and `http://localhost:5120` (see `Properties/launchSettings.json`).
-4. Or from a terminal:
+4. Or from a terminal in the web project directory:
 
 ```powershell
 dotnet restore
 dotnet build
-dotnet run --project TestProject.csproj
+dotnet run
 ```
 
 ### Postman
 
 JSON API requests live in `postman/MapLarge-File-Manager.postman_collection.json` (hardcoded `https://localhost:7146/`, no environment variables).
 
-1. Start the app with the `TestProject` profile.
+1. Start the app locally (`https://localhost:7146`).
 2. Import the collection into Postman.
 3. Trust the ASP.NET development certificate, or turn off SSL verification for localhost.
 4. Send any request (or run a folder). Session **07 Demo seed** writes the Star Wars tree under `FileData` (idempotent).
@@ -231,7 +231,7 @@ Features__EnableGenerateTestData=false
 ## Project layout
 
 ```
-Controllers/     Files, Search, Uploads, Config, Demo (+ retained TestController)
+Controllers/     Files, Search, Uploads, Config, Demo
 Services/        File, search, upload, cleanup, demo seed
 Security/        PathGuard, StorageRoot
 Configuration/   Options + validators

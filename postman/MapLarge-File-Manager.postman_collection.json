@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "name": "MapLarge File Manager API",
-    "description": "JSON API endpoints for the MapLarge File Manager.\n\nBase URL is hardcoded to https://localhost:7146/. Start the app with the TestProject profile, trust the ASP.NET development certificate (or disable SSL verification for localhost), then import this collection and send any request.\n\nOnly endpoints that return JSON (or problem+json) are included.",
+    "description": "JSON API endpoints for the MapLarge File Manager.\n\nBase URL is hardcoded to https://localhost:7146/. Start the app locally, trust the ASP.NET development certificate (or disable SSL verification for localhost), then import this collection and send any request.\n\nOnly endpoints that return JSON (or problem+json) are included.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
